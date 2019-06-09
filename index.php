@@ -1,3 +1,4 @@
+<? $current_page = "index"; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,5 +17,4 @@
         You are logged in <a href='logout.html'>Logout</a>
     </div>         -->
 
-</body>
-</html>
+<? include_once('include/footer.php'); ?>

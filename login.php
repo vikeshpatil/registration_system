@@ -1,13 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Login</title>
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
+<? $current_page = "login";?>
+<? include_once('include/header.php'); ?>
     <div class="container">
         <div class="content">
             <h2 class="heading">Login</h2>
@@ -27,7 +19,7 @@
                         <input type="checkbox" id="remember-me" class="remember-me" name="remember-me">
                         <label for="remember-me">Remember me</label>
                     </div>
-                    <a href="forgot_password.html" class="forgot-password">Forgot password?</a>
+                    <a href="forgot_password.php" class="forgot-password">Forgot password?</a>
                 </div>
                 <div class="g-recaptcha" data-sitekey="<?php echo $public_key;?>"></div>
                 <div class="input-box">
@@ -38,5 +30,4 @@
 
         </div>
     </div>
-</body>
-</html>
+<? include_once('include/footer.php');?>

@@ -1,13 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Password Recovery</title>
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
+<? $current_page = "forgot_password"; ?>
+<? include_once('include/header.php'); ?>
     <div class="container">
         <div class="content">
             <h2 class="heading">Password Recovery</h2>
@@ -25,5 +17,5 @@
             </form>
         </div>
     </div>
-</body>
-</html>
+
+<? include_once('include/footer.php'); ?>
