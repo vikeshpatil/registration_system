@@ -9,12 +9,12 @@
 <?
   
   if(isset($_POST['sign-up'])){
-      $firstname = $_POST['first_name'];
-      $lastname = $_POST['last_name'];
-      $username = $_POST['user_name'];
-      $email = $_POST['user_email'];
-      $password = $_POST['user_password'];
-      $confirm_password = $_POST['user_confirm_password'];
+      $firstname = escape($_POST['first_name']);
+      $lastname = escape($_POST['last_name']);
+      $username = escape($_POST['user_name']);
+      $email = escape($_POST['user_email']);
+      $password = escape($_POST['user_password']);
+      $confirm_password = escape($_POST['user_confirm_password']);
   }
      
 ?>

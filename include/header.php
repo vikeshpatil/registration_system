@@ -1,4 +1,5 @@
-<?include_once('include/db.php');?>
+<? require_once('include/functions.php');?>
+<? require_once('include/db.php'); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
