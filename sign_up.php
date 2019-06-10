@@ -1,8 +1,24 @@
 <? $current_page = "Sign Up";?>
 <? include_once('include/header.php'); ?>
+  <!-- grabbing user enterd values -->
+
+  
     <div class="container">
         <div class="content">
             <h2 class="heading">Sign Up</h2>
+<?
+  
+  if(isset($_POST['sign-up'])){
+      $firstname = $_POST['first_name'];
+      $lastname = $_POST['last_name'];
+      $username = $_POST['user_name'];
+      $email = $_POST['user_email'];
+      $password = $_POST['user_password'];
+      $confirm_password = $_POST['user_confirm_password'];
+  }
+     
+?>
+
             <div class='notification'>Sign up successful. Check your email for activation link</div>
             <form action="sign_up.php" method="POST">
                 <div class="input-box">
