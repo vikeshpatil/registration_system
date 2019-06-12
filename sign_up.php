@@ -17,13 +17,13 @@
       $confirm_password = escape($_POST['user_confirm_password']);
 
         //first name validation
-        $pattern_fn = "/^[a-zA-Z ]{3,12}$/";
+        $pattern_fn = "/^[a-zA-Z ]{3,12}$/";// ^ indicates start of regular expression and $ indiacates end of regular expression
         if (!preg_match($pattern_fn, $firstname)) {
             $errFn = "Must be at lest 3 character long, letter and space allowed";
         }
 
        //last name validation
-       $pattern_fn = "/^[a-zA-Z ]{3,12}$/";
+       $pattern_fn = "/^[a-zA-Z ]{3,12}$/"; //{3,12} specifies the limit of characters
        if (!preg_match($pattern_fn, $lastname)) {
            $errLn = "Must be at lest 3 character long, letter and space allowed";
        }
@@ -34,6 +34,11 @@
            $errUn = "Must be at lest 3 character long, letter, numbers and underscore allowed";
        }
 
+       //email validation
+       $pattern_e = "/^([a-z0-9_\+\-]+)(\.[a-z0-9\+\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/"; //+ specifies at least once and * specifies at least 0 or more. \ is to escape the character
+       if(!preg_match($pattern_e, $email)){
+           $errE = "Invalid email format!";
+       }
        //password validation
       if($password==$confirm_password){
           $error_pass = false;
@@ -61,6 +66,7 @@
                 </div>
                 <div class="input-box">
                     <input type="email" class="input-control" placeholder="Email address" name="user_email" autocomplete="off" >
+                    <? echo isset($errE)? "<span class='error'>$errE</span>": "";  ?>
                 </div>
                 <div class="input-box">
                     <input type="password" class="input-control" placeholder="Enter password" name="user_password" autocomplete="off" >
