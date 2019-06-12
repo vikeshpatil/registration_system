@@ -28,7 +28,13 @@
            $errLn = "Must be at lest 3 character long, letter and space allowed";
        }
 
-        //password validation
+       //username validation
+       $pattern_fn = "/^[a-zA-Z0-9_]{3,12}$/";
+       if (!preg_match($pattern_fn, $username)) {
+           $errUn = "Must be at lest 3 character long, letter, numbers and underscore allowed";
+       }
+
+       //password validation
       if($password==$confirm_password){
           $error_pass = false;
       }else{
@@ -51,6 +57,7 @@
                 </div>
                 <div class="input-box">
                     <input type="text" class="input-control" placeholder="Username" name="user_name" autocomplete="off" >
+                    <? echo isset($errUn)? "<span class='error'>$errUn</span>": "";  ?>
                 </div>
                 <div class="input-box">
                     <input type="email" class="input-control" placeholder="Email address" name="user_email" autocomplete="off" >
