@@ -35,7 +35,8 @@
        }
 
        //email validation
-       $pattern_e = "/^([a-z0-9_\+\-]+)(\.[a-z0-9\+\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/"; //+ specifies at least once and * specifies at least 0 or more. \ is to escape the character
+       $pattern_e = "/^([a-z0-9_\+\-]+)(\.[a-z0-9\+\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/i"; /*+ specifies at least once and * specifies at least 0 or more. 
+                                                                                        \ is to escape the character. i specifies independent of the case*/
        if(!preg_match($pattern_e, $email)){
            $errE = "Invalid email format!";
        }
