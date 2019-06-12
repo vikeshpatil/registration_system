@@ -42,8 +42,12 @@
        }
        //password validation
       if($password==$confirm_password){
-          $error_pass = false;
-      }else{
+          $pattern_pass = "/^.*(?=.{4,30})(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).*$/"; // . indicates all the characters. * indicates at least 0 times pattern should be repeated
+            if(!preg_match($pattern_pass, $password)){
+                $errpass = "Must be at least 4 characters long, 1 upper case, 1 lower case and 1 number";
+            }
+        }
+      else{
           $error_pass ="Password doesn't matched";
       }
 
@@ -71,7 +75,7 @@
                 </div>
                 <div class="input-box">
                     <input type="password" class="input-control" placeholder="Enter password" name="user_password" autocomplete="off" >
-                    <? global $error_pass; echo ($error_pass)? "<span class='error'>$error_pass</span>" : ""; ?>
+                    <? echo isset($errpass)? "<span class='error'>$errpass</span>" : ""; ?>
                 </div>
                 <div class="input-box">
                     <input type="password" class="input-control" placeholder="Confirm password" name="user_confirm_password" autocomplete="off" >
