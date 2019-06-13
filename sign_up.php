@@ -8,6 +8,7 @@
 <?
   
   if (isset($_POST['sign-up'])) {
+
       //grabbing user entered values
       $firstname = escape($_POST['first_name']);
       $lastname = escape($_POST['last_name']);
@@ -32,7 +33,7 @@
       $pattern_fn = "/^[a-zA-Z0-9_]{3,12}$/";
       if (!preg_match($pattern_fn, $username)) {
           $errUn = "Must be at lest 3 character long, letter, numbers and underscore allowed";
-      }
+      } 
 
       //email validation
       $pattern_e = "/^([a-z0-9_\+\-]+)(\.[a-z0-9\+\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/i"; /*+ specifies at least once and * specifies at least 0 or more.
@@ -50,22 +51,26 @@
           $errpass ="Password doesn't matched";
       }
       //adding data to database
-        
+      
         if ( !isset($errFn) && !isset($errLn) && !isset($errUn) && !isset($errE) && !isset($errpass)) {
+
+            date_default_timezone_set("Asia/Kolkata");
+            $date = date("Y-m-d H:i:s");
+
         $hash = password_hash($password, PASSWORD_BCRYPT, ['cost'=>10]);    //BCRYPT is a password hashing algorithm. the third argument specifies that the algorithm will run 10 times
-        $query = "INSERT INTO user_details (first_name, last_name, username, email, password, validation_key, registration_date) VALUES('$firstname', '$lastname', '$username', '$email', '$hash', 0, 0)";
+        $query = "INSERT INTO user_details (first_name, last_name, username, email, password, validation_key, registration_date) VALUES('$firstname', '$lastname', '$username', '$email', '$hash', 0, '$date')";
         
         $query_run = mysqli_query($connection, $query);
         if(!$query_run){
             die("Query failed".mysqli_error($connection));
-        }else echo "Success";
+        }else echo "<div class='notification'>Sign up successful</div>";
     }
   
   }
      
 ?>
 
-            <!-- <div class='notification'>Sign up successful. Check your email for activation link</div> -->
+            <!--  -->
             <form action="sign_up.php" method="POST">
                 <div class="input-box">
                     <input type="text" class="input-control" placeholder="First name" name="first_name" autocomplete="off" >
