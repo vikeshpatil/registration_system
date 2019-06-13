@@ -6,8 +6,22 @@
             <h2 class="heading">Sign Up</h2>
 
 <?
-  
+  //google recaptcha
+  $public_key = "6LfZqKgUAAAAANcIkkAEBCkjDStTAXIHiAe62Stw";
+  $private_key = "6LfZqKgUAAAAAPnh31kDHdXjbEseb8Q28ERf-nxR";
+  $url = "https://www.google.com/recaptcha/api/siteverify";
+
   if (isset($_POST['sign-up'])) {
+
+      //Google recaptcha
+      $response_key = $_POST['g-recaptcha-response'];
+      //https://www.google.com/recaptcha/site/reverify?secret=$private_key&response=$response_key&remoteip=currentScriptAddress
+      $response=file_get_contents($url."?secret=".$private_key."&response=".$response_key."&remoteip=".$_SERVER['REMOTE_ADDR']);
+      $response = json_decode($response);
+
+        if(!($response->success == 1)){
+            $errCaptcha = "Wrong captcha";
+        }
 
       //grabbing user entered values
       $firstname = escape($_POST['first_name']);
@@ -41,6 +55,7 @@
       if (!preg_match($pattern_e, $email)) {
           $errE = "Invalid email format!";
       }
+      
       //password validation
       if ($password==$confirm_password) {
           $pattern_pass = "/^.*(?=.{4,30})(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).*$/"; // . indicates all the characters. * indicates at least 0 times pattern should be repeated
@@ -50,8 +65,8 @@
       } else {
           $errpass ="Password doesn't matched";
       }
-      //adding data to database
       
+      //adding data to database
         if ( !isset($errFn) && !isset($errLn) && !isset($errUn) && !isset($errE) && !isset($errpass)) {
 
             date_default_timezone_set("Asia/Kolkata");
@@ -65,12 +80,9 @@
             die("Query failed".mysqli_error($connection));
         }else echo "<div class='notification'>Sign up successful</div>";
     }
-  
-  }
-     
+  }     
 ?>
 
-            <!--  -->
             <form action="sign_up.php" method="POST">
                 <div class="input-box">
                     <input type="text" class="input-control" placeholder="First name" name="first_name" autocomplete="off" >
@@ -94,8 +106,10 @@
                 </div>
                 <div class="input-box">
                     <input type="password" class="input-control" placeholder="Confirm password" name="user_confirm_password" autocomplete="off" >
-                    
+                
                 </div>
+                <div class="g-recaptcha" data-sitekey="<? echo $public_key; ?>"></div>
+                <? echo isset($errCaptcha)? "<span class='error'>$errCaptcha</span>" : ""; ?>
                 <div class="input-box">
                     <input type="submit" class="input-submit" value="SIGN UP" name="sign-up">
                 </div>
