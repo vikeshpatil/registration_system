@@ -1,5 +1,5 @@
 <? $current_page = "Sign Up";?>
-<? include_once('include/header.php'); ?>
+<? require_once('include/header.php'); ?>
   
     <div class="container">
         <div class="content">
@@ -7,7 +7,7 @@
 
 <?
   
-  if(isset($_POST['sign-up'])){
+  if (isset($_POST['sign-up'])) {
       //grabbing user entered values
       $firstname = escape($_POST['first_name']);
       $lastname = escape($_POST['last_name']);
@@ -16,41 +16,51 @@
       $password = escape($_POST['user_password']);
       $confirm_password = escape($_POST['user_confirm_password']);
 
-        //first name validation
+      //first name validation
         $pattern_fn = "/^[a-zA-Z ]{3,12}$/";// ^ indicates start of regular expression and $ indiacates end of regular expression
         if (!preg_match($pattern_fn, $firstname)) {
             $errFn = "Must be at lest 3 character long, letter and space allowed";
         }
 
-       //last name validation
+      //last name validation
        $pattern_fn = "/^[a-zA-Z ]{3,12}$/"; //{3,12} specifies the limit of characters
        if (!preg_match($pattern_fn, $lastname)) {
            $errLn = "Must be at lest 3 character long, letter and space allowed";
        }
 
-       //username validation
-       $pattern_fn = "/^[a-zA-Z0-9_]{3,12}$/";
-       if (!preg_match($pattern_fn, $username)) {
-           $errUn = "Must be at lest 3 character long, letter, numbers and underscore allowed";
-       }
-
-       //email validation
-       $pattern_e = "/^([a-z0-9_\+\-]+)(\.[a-z0-9\+\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/i"; /*+ specifies at least once and * specifies at least 0 or more. 
-                                                                                        \ is to escape the character. i specifies independent of the case*/
-       if(!preg_match($pattern_e, $email)){
-           $errE = "Invalid email format!";
-       }
-       //password validation
-      if($password==$confirm_password){
-          $pattern_pass = "/^.*(?=.{4,30})(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).*$/"; // . indicates all the characters. * indicates at least 0 times pattern should be repeated
-            if(!preg_match($pattern_pass, $password)){
-                $errpass = "Must be at least 4 characters long, 1 upper case, 1 lower case and 1 number";
-            }
-        }
-      else{
-          $error_pass ="Password doesn't matched";
+      //username validation
+      $pattern_fn = "/^[a-zA-Z0-9_]{3,12}$/";
+      if (!preg_match($pattern_fn, $username)) {
+          $errUn = "Must be at lest 3 character long, letter, numbers and underscore allowed";
       }
 
+      //email validation
+      $pattern_e = "/^([a-z0-9_\+\-]+)(\.[a-z0-9\+\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/i"; /*+ specifies at least once and * specifies at least 0 or more.
+                                                                                        \ is to escape the character. i specifies independent of the case*/
+      if (!preg_match($pattern_e, $email)) {
+          $errE = "Invalid email format!";
+      }
+      //password validation
+      if ($password==$confirm_password) {
+          $pattern_pass = "/^.*(?=.{4,30})(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).*$/"; // . indicates all the characters. * indicates at least 0 times pattern should be repeated
+          if (!preg_match($pattern_pass, $password)) {
+              $errpass = "Must be at least 4 characters long, 1 upper case, 1 lower case and 1 number";
+          }
+      } else {
+          $errpass ="Password doesn't matched";
+      }
+      //adding data to database
+        
+        if ( !isset($errFn) && !isset($errLn) && !isset($errUn) && !isset($errE) && !isset($errpass)) {
+        $hash = password_hash($password, PASSWORD_BCRYPT, ['cost'=>10]);    //BCRYPT is a password hashing algorithm. the third argument specifies that the algorithm will run 10 times
+        $query = "INSERT INTO user_details (first_name, last_name, username, email, password, validation_key, registration_date) VALUES('$firstname', '$lastname', '$username', '$email', '$hash', 0, 0)";
+        
+        $query_run = mysqli_query($connection, $query);
+        if(!$query_run){
+            die("Query failed".mysqli_error($connection));
+        }else echo "Success";
+    }
+  
   }
      
 ?>
