@@ -1,4 +1,4 @@
-<?
+<?php
 
 define("dbhost", "localhost");
 define("username", "root");
@@ -9,5 +9,5 @@ $connection = mysqli_connect(dbhost, username, password, dbname);
 
 if(!$connection)
     die("Unable to connect the database.");
-    
+
     ?>

@@ -1,4 +1,4 @@
-<? $current_page = "index"; ?>
+<?php $current_page = "index"; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,12 +9,12 @@
     <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body class='front-end'>
-    
+
     <div>
         You are not logged in <a href='login.php'>Login now</a>
-    </div> 
+    </div>
     <!-- <div>
         You are logged in <a href='logout.html'>Logout</a>
     </div>         -->
 
-<? include_once('include/footer.php'); ?>
+<?php include_once('include/footer.php'); ?>

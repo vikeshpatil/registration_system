@@ -1,5 +1,5 @@
-<? $current_page = "login";?>
-<? include_once('include/header.php'); ?>
+<?php $current_page = "login";?>
+<?php include_once('include/header.php'); ?>
     <div class="container">
         <div class="content">
             <h2 class="heading">Login</h2>
@@ -21,7 +21,7 @@
                     </div>
                     <a href="forgot_password.php" class="forgot-password">Forgot password?</a>
                 </div>
-                <div class="g-recaptcha" data-sitekey="<?php echo $public_key;?>"></div>
+                <div class="g-recaptcha" data-sitekey="<?phpphp echo $public_key;?>"></div>
                 <div class="input-box">
                     <input type="submit" class="input-submit" value="LOGIN" name="login">
                 </div>
@@ -30,4 +30,4 @@
 
         </div>
     </div>
-<? include_once('include/footer.php');?>
+<?php include_once('include/footer.php');?>

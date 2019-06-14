@@ -1,5 +1,5 @@
-<? $current_page = "forgot_password"; ?>
-<? include_once('include/header.php'); ?>
+<?php $current_page = "forgot_password"; ?>
+<?php include_once('include/header.php'); ?>
     <div class="container">
         <div class="content">
             <h2 class="heading">Password Recovery</h2>
@@ -18,4 +18,4 @@
         </div>
     </div>
 
-<? include_once('include/footer.php'); ?>
+<?php include_once('include/footer.php'); ?>

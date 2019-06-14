@@ -1,5 +1,5 @@
-<?  $current_page="new_password"; ?>
-<? include_once('include/header.php');?>
+<?php  $current_page="new_password"; ?>
+<?php include_once('include/header.php');?>
     <div class="container">
         <div class="content">
             <h2 class="heading">New Password</h2>
@@ -16,6 +16,6 @@
                 </div>
             </form>
 
-        </div> 
+        </div>
     </div>
-<? include_once('include/footer.php'); ?>
+<?php include_once('include/footer.php'); ?>
