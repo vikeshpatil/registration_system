@@ -72,13 +72,24 @@
             date_default_timezone_set("Asia/Kolkata");
             $date = date("Y-m-d H:i:s");
 
-        $hash = password_hash($password, PASSWORD_BCRYPT, ['cost'=>10]);    //BCRYPT is a password hashing algorithm. the third argument specifies that the algorithm will run 10 times
-        $query = "INSERT INTO user_details (first_name, last_name, username, email, password, validation_key, registration_date) VALUES('$firstname', '$lastname', '$username', '$email', '$hash', 0, '$date')";
+            //email conformation
+            //recipient
+                    $mail->addAddress($email);
+                    $mail->Subject="Verify your email";
+                    $mail->Body="<a href='#'>click here</a> to verify your email.
+                                    <br> This is link is valid for only 20 minutes.";
 
-        $query_run = mysqli_query($connection, $query);
-        if(!$query_run){
-            die("Query failed".mysqli_error($connection));
-        }else echo "<div class='notification'>Sign up successful</div>";
+                    if($mail->send()){
+                        $hash = password_hash($password, PASSWORD_BCRYPT, ['cost'=>10]);    //BCRYPT is a password hashing algorithm. the third argument specifies that the algorithm will run 10 times
+                        $query = "INSERT INTO user_details (first_name, last_name, username, email, password, validation_key, registration_date) VALUES('$firstname', '$lastname', '$username', '$email', '$hash', 0, '$date')";
+
+                        $query_run = mysqli_query($connection, $query);
+                        if(!$query_run){
+                            die("Query failed".mysqli_error($connection));
+                        }else echo "<div class='notification'>Sign up successful</div>";
+                    }else echo "<div class='notification'>Something went wrong:(</div>";
+                    
+
     }
   }
 ?>
