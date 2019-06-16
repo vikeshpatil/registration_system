@@ -20,11 +20,20 @@ class ComposerStaticInitf24b3b4982dfe5344ef6c138911d1338
         ),
     );
 
+    public static $classMap = array (
+        'PHPMailer\\PHPMailer\\Exception' => __DIR__ . '/..' . '/phpmailer/phpmailer/src/Exception.php',
+        'PHPMailer\\PHPMailer\\OAuth' => __DIR__ . '/..' . '/phpmailer/phpmailer/src/OAuth.php',
+        'PHPMailer\\PHPMailer\\PHPMailer' => __DIR__ . '/..' . '/phpmailer/phpmailer/src/PHPMailer.php',
+        'PHPMailer\\PHPMailer\\POP3' => __DIR__ . '/..' . '/phpmailer/phpmailer/src/POP3.php',
+        'PHPMailer\\PHPMailer\\SMTP' => __DIR__ . '/..' . '/phpmailer/phpmailer/src/SMTP.php',
+    );
+
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInitf24b3b4982dfe5344ef6c138911d1338::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInitf24b3b4982dfe5344ef6c138911d1338::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitf24b3b4982dfe5344ef6c138911d1338::$classMap;
 
         }, null, ClassLoader::class);
     }

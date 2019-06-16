@@ -1,5 +1,7 @@
+<?php ob_start(); ?>
 <?php require_once('include/functions.php');?>
 <?php require_once('include/db.php'); ?>
+<?php if(isset($_SESSION['login'])){ header("Location: index.php"); } ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
