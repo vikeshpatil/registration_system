@@ -44,7 +44,7 @@
                   echo "<div class='notification'>You must wait for at least 5 minutes for next link.</div>";
             }
               }
-
+              $isAuthenticated = false;
               if(isset($_POST['login'])){
                 //Google recaptcha
                 $response_key = $_POST['g-recaptcha-response'];
@@ -70,13 +70,12 @@
                 if(password_verify($password, $result['password'])){
                   if($result['is_active'] == 1){
                     if(!isset($errCaptcha)){
+                      $isAuthenticated =true;
                       echo "<div class='notification'>Logged In Successfull</div>";
                       //resetting fields
                       unset($username);
                       unset($email);
                       unset($password);
-                      $_SESSION['login'] = 'success';
-                      header("Refresh:2;url=index.php");
                   }
                 }else{
                     if(!isset($errCaptcha)){
@@ -87,7 +86,27 @@
                 }else {
                   echo "<div class='notification'>Invalid username or email or password</div> ";
                 }
+              }
 
+              if($isAuthenticated){
+
+                if(!empty($_POST['remember-me'])){
+
+                  $selector = getToken(32);
+                  $encoded_selector = base64_encode($selector);
+                  setcookie('remember_me', $encoded_selector, time()+ 60*5, '','','',true); //remember_me for 5 minute
+
+                  date_default_timezone_set('Asia/Kolkata');
+                  $expire_date_remember_me = date("Y-m-d H:i:s", time()+60*5);
+                  $username = escape($_POST['user_name']);
+                  $query = "INSERT Into remember_me(username, selector, expire_date, is_expired) VALUES('$username', '$selector', '$expire_date_remember_me', 0)";
+                  $query_run = mysqli_query($connection, $query);
+                  if(!$query_run){
+                    die("Connection to database failed!".mysqli_error());
+                  }
+                }
+                $_SESSION['login'] ='success';
+                header("Refresh:1;url=index.php");
               }
 
              ?>

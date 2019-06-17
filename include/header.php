@@ -13,6 +13,10 @@
 </head>
 <body>
 <?php
+  if(isAlreadyloggedin()){
+    header("Location: index.php");
+    exist;
+  }
 require 'vendor/autoload.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
