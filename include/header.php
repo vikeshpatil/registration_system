@@ -27,11 +27,11 @@ use PHPMailer\PHPMailer\Exception;
  $mail->Host = "smtp.gmail.com";
  $mail->Port = "465";
  $mail->SMTPSecure = "ssl";
- $mail->Username = "vikesh.patil8340@gmail.com";
- $mail->Password = "Detroit&95";
- $mail->From = "vikesh.patil8340@gmail.com";
- $mail->FromName = "Vikesh Patil";
- $mail->addReplyto("no-reply@vikesh.com", "no-reply");
+ $mail->Username = "";  //sender email id
+ $mail->Password = "";  //sender email id's password
+ $mail->From = "";  //sender email id
+ $mail->FromName = "";  //sender name
+ $mail->addReplyto("no-reply@example.com", "no-reply");
  $mail->isHTML(true);
 
  ?>
